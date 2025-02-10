@@ -1,27 +1,22 @@
-// EMI Calculation
-function calculateEMI() {
-    let principal = document.getElementById("emiPrincipal").value;
-    let rate = document.getElementById("emiRate").value / 12 / 100;
-    let tenure = document.getElementById("emiTenure").value;
-
-    if (principal && rate && tenure) {
-        let emi = (principal * rate * Math.pow(1 + rate, tenure)) /
-                  (Math.pow(1 + rate, tenure) - 1);
-        document.getElementById("emiResult").innerText = emi.toFixed(2);
-    } else {
-        alert("Please enter valid values!");
-    }
-}
-
-// Percentage Calculation
-function calculatePercentage() {
-    let total = document.getElementById("percentageTotal").value;
-    let obtained = document.getElementById("percentageObtained").value;
-
-    if (total && obtained) {
-        let percentage = (obtained / total) * 100;
-        document.getElementById("percentageResult").innerText = percentage.toFixed(2);
-    } else {
-        alert("Please enter valid values!");
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Quiz Game</h1>
+    <p id="question">Which is the most difficult language in the world?</p>
+    <button id="option1" class="option">Mandarin Chinese</button>
+    <button id="option2" class="option">Arabic</button>
+    <button id="option3" class="option">Hungarian</button>
+    <button id="option4" class="option">Japanese</button>
+    <p id="timer">Time left: 3 seconds</p>
+    <p id="result"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
