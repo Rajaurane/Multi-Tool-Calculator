@@ -1,109 +1,51 @@
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+let timeLeft = 10;
+let timerInterval;
+
+// Start the timer
+function startTimer() {
+  const timerBar = document.getElementById("timer-bar");
+  const timerText = document.getElementById("timer-text");
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerText.textContent = `Time left: ${timeLeft} seconds`;
+    timerBar.style.width = `${(timeLeft / 10) * 100}%`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      timerText.textContent = "Time's up!";
+      document.getElementById("result").textContent = "The correct answer is Mandarin Chinese.";
+      disableOptions();
+    }
+  }, 1000);
 }
 
-.quiz-container {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  width: 350px;
-  animation: fadeIn 1s ease-in-out;
+// Disable options after time runs out or an answer is selected
+function disableOptions() {
+  const options = document.querySelectorAll(".option");
+  options.forEach(option => {
+    option.disabled = true;
+    option.style.backgroundColor = "#ccc";
+  });
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+// Check the selected answer
+function checkAnswer(selectedOption) {
+  clearInterval(timerInterval);
+  disableOptions();
 
-h1 {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-#question {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.option {
-  padding: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  background-color: #6c5ce7;
-  color: #fff;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.option:hover {
-  background-color: #a29bfe;
-  transform: scale(1.05);
-}
-
-.option:active {
-  transform: scale(0.95);
-}
-
-.timer-container {
-  width: 100%;
-  height: 10px;
-  background-color: #eee;
-  border-radius: 5px;
-  margin: 20px 0;
-  overflow: hidden;
-}
-
-#timer-bar {
-  height: 100%;
-  width: 100%;
-  background-color: #00b894;
-  transition: width 1s linear;
-}
-
-#timer-text {
-  font-size: 14px;
-  color: #333;
-  margin-top: 10px;
-}
-
-#result {
-  font-weight: bold;
-  margin-top: 20px;
-  font-size: 18px;
-  color: #d63031;
-  animation: pop 0.5s ease;
-}
-
-@keyframes pop {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
+  if (selectedOption === "Mandarin Chinese") {
+    document.getElementById("result").textContent = "Correct! Mandarin Chinese is considered one of the most difficult languages.";
+  } else {
+    document.getElementById("result").textContent = "Incorrect! The correct answer is Mandarin Chinese.";
   }
 }
+
+// Add event listeners to options
+document.getElementById("option1").addEventListener("click", () => checkAnswer("Mandarin Chinese"));
+document.getElementById("option2").addEventListener("click", () => checkAnswer("Arabic"));
+document.getElementById("option3").addEventListener("click", () => checkAnswer("Hungarian"));
+document.getElementById("option4").addEventListener("click", () => checkAnswer("Japanese"));
+
+// Start the timer when the page loads
+startTimer();
