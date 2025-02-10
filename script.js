@@ -1,4 +1,4 @@
-let timeLeft = 3;
+let timeLeft = 10;
 let timerInterval;
 
 // Start the timer
