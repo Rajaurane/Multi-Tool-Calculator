@@ -1,0 +1,27 @@
+// EMI Calculation
+function calculateEMI() {
+    let principal = document.getElementById("emiPrincipal").value;
+    let rate = document.getElementById("emiRate").value / 12 / 100;
+    let tenure = document.getElementById("emiTenure").value;
+
+    if (principal && rate && tenure) {
+        let emi = (principal * rate * Math.pow(1 + rate, tenure)) /
+                  (Math.pow(1 + rate, tenure) - 1);
+        document.getElementById("emiResult").innerText = emi.toFixed(2);
+    } else {
+        alert("Please enter valid values!");
+    }
+}
+
+// Percentage Calculation
+function calculatePercentage() {
+    let total = document.getElementById("percentageTotal").value;
+    let obtained = document.getElementById("percentageObtained").value;
+
+    if (total && obtained) {
+        let percentage = (obtained / total) * 100;
+        document.getElementById("percentageResult").innerText = percentage.toFixed(2);
+    } else {
+        alert("Please enter valid values!");
+    }
+}
